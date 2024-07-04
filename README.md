@@ -1,29 +1,34 @@
-# AvaxProject1
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.13;
 
-contract FunctionalityContract {
-    address public owner;
-    uint256 public value;
+contract Bank {
+    uint256 public balance;
 
-    constructor() {
-        owner = msg.sender;
+    constructor(uint256 initialBalance){
+        balance = initialBalance;
     }
 
-    function setValue(uint256 _newValue) external {
-        require(msg.sender == owner, "Only the owner can set the value");
-        value = _newValue;
+    function deposit(uint256 amount) public {
+        balance += amount;
     }
 
-    function asserts(uint256 a, uint256 b) external pure returns (uint256) {
-        assert(a != b);
-        return a + b;
+    function withdraw(uint256 amount) public {
+        // Use the `require` statement to ensure that the specified condition is met
+        // before executing any further code. If the condition is not met, the contract
+        // will throw an exception and the transaction will be reverted.
+        require(amount <= balance, "Insufficient funds");
+
+        // Use the `assert` statement to ensure that the specified condition is met
+        // during contract execution. If the condition is not met, the contract will
+        // throw an exception and the transaction will be reverted.
+        assert(amount > 0);
+
+        balance -= amount;
     }
 
-    function reverts(uint256 _valueToCheck) external pure returns (bool) {
-        if (_valueToCheck < 10) {
-            revert("Value must be greater than or equal to 10");
-        }
-        return true;
+    function withdrawAll() public {
+        // Use the `revert` statement to revert the current transaction and
+        // revert any state changes made by the transaction.
+        revert("This function is not allowed");
     }
 }
