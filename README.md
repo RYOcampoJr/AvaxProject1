@@ -13,22 +13,16 @@ contract Bank {
     }
 
     function withdraw(uint256 amount) public {
-        // Use the `require` statement to ensure that the specified condition is met
-        // before executing any further code. If the condition is not met, the contract
-        // will throw an exception and the transaction will be reverted.
+        //a function that will withdraw or pull out money from the bank
+        //will throw an error exception if the condition will not be met
         require(amount <= balance, "Insufficient funds");
-
-        // Use the `assert` statement to ensure that the specified condition is met
-        // during contract execution. If the condition is not met, the contract will
-        // throw an exception and the transaction will be reverted.
         assert(amount > 0);
 
         balance -= amount;
     }
 
-    function withdrawAll() public {
-        // Use the `revert` statement to revert the current transaction and
-        // revert any state changes made by the transaction.
+    function withdrawEverything() public {
+        // Just an additional function but not allowed to be transacted
         revert("This function is not allowed");
     }
 }
